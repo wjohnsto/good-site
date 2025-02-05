@@ -75,7 +75,7 @@ make watch
 
 ### Configuring the site
 
-Copy the `config.example.yaml` file to `config.yaml` and edit the variables to your liking. There is a description of what each variable is for. If you prefer json use a `config.json` with the same schema. You can also override variables at runtime with a `.env` file or environment variables. See the `.env.example` for the variable values.
+Edit the `config.yaml` to your liking. There is a description of what each variable is for. If you prefer JSON use a `config.json` with the same schema. You can also override variables at runtime with a `.env` file or environment variables. See the `.env.example` for the variable values.
 
 ### Creating a page
 
