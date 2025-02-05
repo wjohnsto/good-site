@@ -80,7 +80,7 @@ build-minhtml:
 				%
 
 build-nonsense:
-	@echo "Scrambling HTML"
+	@echo "Generating nonsense"
 	@go run cmd/nonsense/main.go --percent 20
 
 build-templ:
