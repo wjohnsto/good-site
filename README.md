@@ -16,6 +16,8 @@ It provides:
 1. Scripts for deployment to fly.io
 1. JS if you want it (ugh)
 
+This site is **intended for blog sites**, but it could be used for any static site if you feel so inclined.
+
 ## Table of contents
 
 - [A good static site generator](#a-good-static-site-generator)
