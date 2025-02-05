@@ -152,3 +152,8 @@ The `pkg/ui/components` directory contains a few components for helping you buil
 ## Deployment
 
 This site is a static site, so it can be deployed almost anywhere. Included is a `fly.toml` that you can use to deploy to `fly.io`. Use the `make deploy` and `make deploy-remote` commands to handle deployment. The `make deploy` command will build the docker image locally and push it to `registry.fly.io`. Then it will call the `fly` CLI to deploy. This saves you from having to build in the cloud using fly's build tools. You can still use the cloud build with the `make deploy-remote` script.
+
+
+## Nonsense generator
+
+This site comes bundled with the ability to serve nonsense pages to spammers, bots, etc. It's up to you to use this and determine who you want to serve the nonsense to. The nonsense is generated using a Markov-chain trained on your own `public/` HTML files. You can adjust this in `cmd/nonsense/main.go` if you like. By default, 20% of all the text on your site will be converted to nonsense. You can configure this by looking at the `build-nonsense` task in the `Makefile`. The `nginx.conf` has an existing rule for serving the nonsense as a baseline. Edit it for your own needs.
