@@ -1,0 +1,50 @@
+package components
+
+import "good.site/pkg/config"
+
+type RootLayoutOptions struct {
+	Title       string
+	Description string
+	CurrentNav  string
+	Style       templ.Component
+	Head        templ.Component
+}
+
+templ layout(options *RootLayoutOptions, cfg *config.Config) {
+	<!DOCTYPE html>
+	<html lang={ cfg.Site.Language }>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width"/>
+			<title>{ options.Title } | { cfg.Site.Name }</title>
+			<meta name="title" content={ options.Title }/>
+			<meta property="og:title" content={ options.Title }/>
+			<meta name="author" content={ cfg.Site.Author }/>
+			<meta property="article:author" content={ cfg.Site.Author }/>
+			<meta name="description" content={ options.Description }/>
+			<meta property="og:site_name" content={ cfg.Site.Name }/>
+			@options.Head
+			<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
+			<link rel="icon" type="image/png" sizes="228x228" href="/favicon/favicon-228x228.png"/>
+			<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png"/>
+			<link rel="icon" type="image/png" sizes="48x48" href="/favicon/favicon-48x48.png"/>
+			<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
+			<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
+			<link rel="manifest" href="/favicon/site.webmanifest"/>
+			@RootStyle()
+			@options.Style
+		</head>
+		<body>
+			@TopNav(options.CurrentNav)
+			<main>
+				{ children... }
+			</main>
+		</body>
+	</html>
+}
+
+templ RootLayout(options *RootLayoutOptions) {
+	@layout(options, config.GetConfig()) {
+		{ children... }
+	}
+}

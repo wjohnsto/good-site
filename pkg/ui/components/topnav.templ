@@ -1,0 +1,34 @@
+package components
+
+import "good.site/pkg/config"
+
+templ TopNav(current string) {
+	<header>
+		<nav>
+			<a
+				href="/"
+				if current == "/" {
+					aria-current="page"
+				}
+			>{ config.GetConfig().Site.Name }</a>
+			<ul>
+				<li>
+					<a
+						href="/posts/"
+						if current == "/posts" {
+							aria-current="page"
+						}
+					>Blog</a>
+				</li>
+				<li>
+					<a
+						href="/feeds/"
+						if current == "/feeds" {
+							aria-current="page"
+						}
+					>RSS</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+}

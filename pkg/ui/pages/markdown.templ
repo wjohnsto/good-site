@@ -1,0 +1,124 @@
+package pages
+
+import (
+	"time"
+
+	"good.site/pkg/config"
+	"good.site/pkg/ui/components"
+	"good.site/pkg/utils/convert"
+)
+
+type MarkdownPost struct {
+	Title       string
+	TitleSlug   string
+	Description string
+	Slug        string
+	Url         templ.SafeURL
+	Author      string
+	CreatedDate time.Time
+	UpdatedDate time.Time
+	Html        string
+	Content     templ.Component
+	Text        string
+}
+
+type MarkdownPage struct {
+	Post          MarkdownPost
+	PublishedTerm string
+	ShowAuthor    bool
+	RootUrl       string
+	DateFormat    string
+}
+
+type MarkdownPageOptions struct {
+	PublishedTerm string
+	ShowAuthor    bool
+	RootUrl       string
+	DateFormat    string
+}
+
+templ (p *MarkdownPage) style() {
+	<style>
+	main {
+		header {
+      margin-bottom: 3rem;
+      line-height: 1.25;
+
+      > * {
+        display: block;
+      }
+
+      span {
+        font-size: 0.95rem;
+        color: var(--fg3);
+      }
+		}
+
+		ul {
+			padding-left: 2rem;
+		}
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    h2, h3, h4, h5, h6 {
+      margin-top: 2.5rem;
+      margin-bottom: 0;
+    }
+
+    address {
+      display: inline;
+      color: var(--green);
+    }
+	}
+	</style>
+}
+
+templ (p *MarkdownPage) headTemplate() {
+	<meta property="article:published_time" content={ p.Post.CreatedDate.Format(time.DateOnly) }/>
+}
+
+templ (p *MarkdownPage) postTemplate() {
+	<article>
+		<header>
+			<a id={ p.Post.TitleSlug } href={ templ.URL(convert.AddTrailingSlash(p.RootUrl) + "#" + p.Post.TitleSlug) }><h1>{ p.Post.Title }</h1></a>
+			if p.ShowAuthor {
+				<span>Author:&nbsp;<address>{ convert.DefaultTo(p.Post.Author, config.GetConfig().Site.Author).(string) }</address></span>
+			}
+			if p.Post.CreatedDate.Before(p.Post.UpdatedDate) {
+				<span>{ p.PublishedTerm }: <time pubdate datetime={ p.Post.CreatedDate.Format(time.RFC3339) }>{ p.Post.CreatedDate.Format(p.DateFormat) }</time></span>
+				<span>Updated: <time datetime={ p.Post.UpdatedDate.Format(time.RFC3339) }>{ p.Post.UpdatedDate.Format(p.DateFormat) }</time></span>
+			} else {
+				<time pubdate datetime={ p.Post.CreatedDate.Format(time.RFC3339) }>{ p.Post.CreatedDate.Format(p.DateFormat) }</time>
+			}
+		</header>
+		<section>
+			<p>
+				@p.Post.Content
+			</p>
+		</section>
+	</article>
+}
+
+templ (p *MarkdownPage) Render() {
+	@components.RootLayout(&components.RootLayoutOptions{
+		Title:       p.Post.Title,
+		Description: p.Post.Description,
+		CurrentNav:  p.RootUrl,
+		Style:       p.style(),
+		Head:        p.headTemplate(),
+	}) {
+		@p.postTemplate()
+	}
+}
+
+func NewMarkdownPage(post *MarkdownPost, options *MarkdownPageOptions) *MarkdownPage {
+	return &MarkdownPage{
+		Post:          *post,
+		PublishedTerm: options.PublishedTerm,
+		ShowAuthor:    options.ShowAuthor,
+		RootUrl:       options.RootUrl,
+		DateFormat:    options.DateFormat,
+	}
+}

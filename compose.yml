@@ -1,0 +1,13 @@
+name: "good.site"
+services:
+  www:
+    container_name: www
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - ./public:/usr/share/nginx/html
+      - ./nonsense:/usr/share/nginx/nonsense
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+

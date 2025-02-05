@@ -1,0 +1,16 @@
+build:
+  public: "public" # The relative path to the "public" folder where your index.html and other files will end up
+  nonsense: "nonsense" # The relative path to the "public" folder where your nonsense index.html files will end up
+  markdown: "markdown" # The relative path to where you will keep all your markdown files. You will have subdirectories under this folder for different types of markdown feeds
+site:
+  name: "good.site" # The name of your site which will appear in the page title and in some feeds
+  description: "A blog." # The base URL for your site
+  url: "https://good.site/" # A description of your site that will appear in the description meta
+  author: "Author McAuthorson" # The name of the site author
+  language: "en-US" # What language the site is in
+  copyright: "Copyright 2025, Author McAuthorson" # Copyright text used for feeds
+  icons:
+    sm: "https://good.site/favicon/favicon-32x32.png" # A link to a small 1:1 aspect ratio icon for feeds
+    md: "https://good.site/favicon/favicon-192x192.png" # A link to a medium 1:1 aspect ratio icon for feeds
+    lg: "https://good.site/favicon/favicon-512x512.png" # A link to a large 1:1 aspect ratio icon for feeds
+  logo2x1: "https://good.site/favicon/feed-logo-2x1.png" # A link to a 2:1 aspect ratio logo for feeds

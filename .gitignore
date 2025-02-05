@@ -1,0 +1,10 @@
+bin
+*_templ.go
+*_templ.txt
+.env
+.env.*
+!.env.example
+*.html
+public/
+nonsense/
+!cmd/nonsense/

@@ -1,0 +1,46 @@
+package pages
+
+import (
+	"good.site/pkg/config"
+	"good.site/pkg/ui/components"
+)
+
+type FeedPage struct{}
+
+templ (h *FeedPage) style() {
+	<style>
+	section > ul {
+		padding: 0 2rem;
+		line-height: 1.5;
+	}
+	</style>
+}
+
+templ (h *FeedPage) Render() {
+	@components.RootLayout(&components.RootLayoutOptions{
+		Title:       "Feeds",
+		Description: "RSS feed links for the " + config.GetConfig().Site.Name + " blog, etc.",
+		CurrentNav:  "/feeds",
+		Style:       h.style(),
+		Head:        templ.NopComponent,
+	}) {
+		<section>
+			<h2>Blog feed</h2>
+			<ul>
+				<li><a href="/posts/feed.atom">Atom</a></li>
+				<li><a href="/posts/feed.rss">RSS</a></li>
+				<li><a href="/posts/feed.json">JSON</a></li>
+			</ul>
+		</section>
+	}
+}
+
+func NewFeedPage() *FeedPage {
+	return &FeedPage{}
+}
+
+func init() {
+	AddRoute("/feeds", func() Page {
+		return NewFeedPage()
+	})
+}

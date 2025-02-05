@@ -1,0 +1,122 @@
+package pages
+
+import (
+	"good.site/pkg/ui/components"
+	"time"
+)
+
+type ListMarkdownPage struct {
+	Posts            []MarkdownPost
+	RootUrl          string
+	Title            string
+	Description      string
+	DateFormat       string
+	LinkToSinglePage bool
+	RenderHtml       bool
+}
+
+type ListMarkdownPageOptions struct {
+	RootUrl          string
+	Title            string
+	Description      string
+	DateFormat       string
+	LinkToSinglePage bool
+	RenderHtml       bool
+}
+
+templ (p *ListMarkdownPage) style() {
+	<style>
+	main {
+		h2 {
+			margin: 0;
+		}
+
+		& > ul {
+			list-style: none;
+      margin: 0;
+		}
+
+    li:not(:last-child) {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--black-bright);
+    }
+    li:last-child {
+      padding-top: 3rem;
+    }
+    li:first-child, li:only-child {
+      padding-top: 1rem;
+    }
+
+		article > a {
+			display: block;
+		}
+	}
+</style>
+}
+
+templ (p *ListMarkdownPage) listItemTemplate(post MarkdownPost) {
+	<li>
+		<article id={ post.TitleSlug }>
+			if p.LinkToSinglePage {
+				<a href={ post.Url }>
+					<h2>{ post.Title }</h2>
+				</a>
+			} else {
+				<a href={ templ.URL("#" + post.TitleSlug) }><h2>{ post.Title }</h2></a>
+			}
+			<time datetime={ post.CreatedDate.Format(time.RFC3339) }>
+				{ post.CreatedDate.Format(p.DateFormat) }
+			</time>
+			if p.RenderHtml {
+				@post.Content
+				if p.LinkToSinglePage {
+					<footer>
+						<a href={ post.Url }>Read more about { post.Title }</a>
+					</footer>
+				}
+			} else {
+				<p>
+					{ post.Description }
+					if p.LinkToSinglePage {
+						<footer>
+							<a href={ post.Url }>Read more about { post.Title }</a>
+						</footer>
+					}
+				</p>
+			}
+		</article>
+	</li>
+}
+
+templ (p *ListMarkdownPage) listTemplate(Posts []MarkdownPost) {
+	<ul>
+		for _, post := range Posts {
+			@p.listItemTemplate(post)
+		}
+	</ul>
+}
+
+templ (p *ListMarkdownPage) Render() {
+	@components.RootLayout(&components.RootLayoutOptions{
+		Title:       p.Title,
+		Description: p.Description,
+		CurrentNav:  p.RootUrl,
+		Style:       p.style(),
+		Head:        templ.NopComponent,
+	}) {
+		@p.listTemplate(p.Posts)
+	}
+}
+
+func NewListMarkdownPage(posts []MarkdownPost, options *ListMarkdownPageOptions) *ListMarkdownPage {
+	return &ListMarkdownPage{
+		Posts:            posts,
+		Title:            options.Title,
+		RootUrl:          options.RootUrl,
+		Description:      options.Description,
+		DateFormat:       options.DateFormat,
+		LinkToSinglePage: options.LinkToSinglePage,
+		RenderHtml:       options.RenderHtml,
+	}
+}

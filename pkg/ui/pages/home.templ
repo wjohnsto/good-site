@@ -1,0 +1,30 @@
+package pages
+
+import (
+	"good.site/pkg/config"
+	"good.site/pkg/ui/components"
+)
+
+type HomePage struct{}
+
+templ (h *HomePage) Render() {
+	@components.RootLayout(&components.RootLayoutOptions{
+		Title:       "Home",
+		Description: config.GetConfig().Site.Description,
+		CurrentNav:  "/",
+		Style:       templ.NopComponent,
+		Head:        templ.NopComponent,
+	}) {
+		<p>Hello world!</p>
+	}
+}
+
+func NewHomePage() *HomePage {
+	return &HomePage{}
+}
+
+func init() {
+	AddRoute("", func() Page {
+		return NewHomePage()
+	})
+}
