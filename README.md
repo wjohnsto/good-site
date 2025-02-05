@@ -9,12 +9,13 @@ Do you like the idea behind [simple-site](https://github.com/wjohnsto/simple-sit
 It provides:
 
 1. Building static pages from markdown files
-1. Generating nonsense output to serve to spammers
-1. Merging styles into a single `<style>` tag (no external CSS)
-1. A two-line Dockerfile for hosting with nginx
-1. Scripts for local development
-1. Scripts for deployment to fly.io
-1. JS if you want it (ugh)
+2. Built-in RSS capabilities
+3. Generating nonsense output to serve to spammers
+4. Merging styles into a single `<style>` tag (no external CSS)
+5. A two-line Dockerfile for hosting with nginx
+6. Scripts for local development
+7. Scripts for deployment to fly.io
+8. JS if you want it (ugh)
 
 This site is **intended for blog sites**, but it could be used for any static site if you feel so inclined.
 
@@ -131,14 +132,14 @@ Test post, please ignore
 When you build the site, the markdown file will be edited with metadata based on the `h1` tag (i.e. "# Hello World"), the first paragraph, and the site configuration:
 
 ```md
----
+\---
 title: "Hello World"
 slug: "hello-world"
 author: "Author McAuthorson"
 description: "Test post, please ignore."
 created_date: "2025-01-07T12:41:04-08:00"
 updated_date: "2025-01-27T12:41:04-08:00"
----
+\---
 # Hello World
 
 Test post, please ignore.

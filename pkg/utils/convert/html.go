@@ -27,8 +27,11 @@ func bfs(node *html.Node, mark func(node *html.Node) bool) {
 			break
 		}
 
-		for n := range n.ChildNodes() {
-			q.Enqueue(n)
+		child := n.LastChild
+
+		for child != nil {
+			q.Enqueue(child)
+			child = child.PrevSibling
 		}
 	}
 }
@@ -47,8 +50,11 @@ func dfs(node *html.Node, mark func(node *html.Node) bool) {
 			break
 		}
 
-		for n := range n.ChildNodes() {
-			st.Push(n)
+		child := n.LastChild
+
+		for child != nil {
+			st.Push(child)
+			child = child.PrevSibling
 		}
 	}
 }
