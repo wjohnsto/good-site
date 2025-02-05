@@ -117,7 +117,7 @@ serve-nonsense:    ## Run the local file server for nonsense files on :8080
 watch:             ## Watch directories for changes and rebuild the site
 	@while true; do \
 		$(MAKE) build; \
-		inotifywait --quiet -qre close_write ./pkg ./posts; \
+		inotifywait --quiet -qre close_write ./pkg ./markdown; \
 	done
 
 list-updates:      ## List updates to go dependencies
