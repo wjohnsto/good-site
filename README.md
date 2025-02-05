@@ -32,6 +32,7 @@ This site is **intended for blog sites**, but it could be used for any static si
       - [Writing a markdown post](#writing-a-markdown-post)
     - [Helper components](#helper-components)
   - [Deployment](#deployment)
+  - [Nonsense generator](#nonsense-generator)
 
 ## Dependencies
 
