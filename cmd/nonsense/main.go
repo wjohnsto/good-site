@@ -60,24 +60,14 @@ func main() {
 				for i := 0; i < len(words); i++ {
 					num := r.Intn(100)
 
-					if num < *percent {
+					if num < *percent && len(input) > 3 {
 						newWords = append(newWords, c.Next())
 					} else {
 						newWords = append(newWords, words[i])
 					}
 				}
 
-				out := strings.Join(newWords, " ")
-
-				if input[len(input)-1:] == " " {
-					out = out + " "
-				}
-
-				if input[0:1] == " " {
-					out = " " + out
-				}
-
-				return out
+				return strings.Join(newWords, " ")
 			})
 		}
 
