@@ -19,6 +19,8 @@ It provides:
 
 This site is **intended for blog sites**, but it could be used for any static site if you feel so inclined.
 
+[Example site that uses Good Site](https://wwj.dev/)
+
 ## Table of contents
 
 - [A good static site generator](#a-good-static-site-generator)
