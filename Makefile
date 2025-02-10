@@ -41,6 +41,8 @@ copy-assets:
 	@cp -r assets/* public
 	@mkdir -p nonsense
 	@cp -r assets/* nonsense
+	@cp -r assets/favicon/favicon.ico public
+	@cp -r assets/favicon/favicon.ico nonsense
 
 format:            ## Format .go and .templ files
 	@gofmt -s -w .
