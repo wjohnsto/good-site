@@ -20,7 +20,7 @@ templ (h *FeedPage) Render() {
 	@components.RootLayout(&components.RootLayoutOptions{
 		Title:       "Feeds",
 		Description: "RSS feed links for the " + config.GetConfig().Site.Name + " blog, etc.",
-		CurrentNav:  "/feeds",
+		CurrentNav:  "/feeds/",
 		Style:       h.style(),
 		Head:        templ.NopComponent,
 	}) {

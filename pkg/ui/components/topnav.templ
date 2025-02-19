@@ -15,7 +15,7 @@ templ TopNav(current string) {
 				<li>
 					<a
 						href="/posts/"
-						if current == "/posts" {
+						if current == "/posts/" {
 							aria-current="page"
 						}
 					>Blog</a>
@@ -23,7 +23,7 @@ templ TopNav(current string) {
 				<li>
 					<a
 						href="/feeds/"
-						if current == "/feeds" {
+						if current == "/feeds/" {
 							aria-current="page"
 						}
 					>RSS</a>
